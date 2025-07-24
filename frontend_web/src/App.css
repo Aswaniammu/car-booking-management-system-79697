@@ -1,104 +1,403 @@
-/* CSS Variables for Theme Management */
+/* THEME COLORS & BRANDING */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
+  --primary-color: #1b63ac;
+  --secondary-color: #424242;
+  --accent-color: #ffd600;
+  --bg-primary: #fff;
   --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
+  --text-primary: #222;
+  --text-secondary: #575757;
   --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --brand-radius: 12px;
+  --shadow: 0 4px 18px 0 rgb(30 30 40 / 3%);
+  --brand-title-font: 'Segoe UI', 'Roboto', Arial, sans-serif;
 }
-
 [data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+  --primary-color: #3797ef;
+  --secondary-color: #191923;
+  --accent-color: #ffd600;
+  --bg-primary: #222;
+  --bg-secondary: #363940;
+  --text-primary: #f7f7f7;
+  --text-secondary: #b0becc;
+  --border-color: #444851;
 }
 
+
+body,
 .App {
-  text-align: center;
-  background-color: var(--bg-primary);
+  background: var(--bg-primary);
+  min-height: 100vh;
   color: var(--text-primary);
-  min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
+.main-layout__root {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+}
+.header-navbar {
+  background: var(--primary-color);
+  color: #fff;
+  padding: 0.8rem 2rem;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
+  justify-content: space-between;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+.brand-accent {
+  font-size: 1.35rem;
+  color: var(--accent-color);
+  margin-right: 0.5rem;
+}
+.brand-title {
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-decoration: none;
+  font-family: var(--brand-title-font);
+  font-size: 1.15rem;
+}
+
+.navbar-links a,
+.navbar-links button {
+  color: #fff;
+  margin: 0 0.9em 0 0;
+  background: none;
+  border: none;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1em;
+  cursor: pointer;
+  padding: 0.22em 0.55em;
+  border-radius: 7px;
+  transition: background 0.14s;
+}
+.navbar-links a.active,
+.navbar-links a:active,
+.navbar-links a:hover,
+.navbar-links button:hover {
+  background: var(--accent-color);
+  color: var(--secondary-color);
+}
+.logout-btn {
+  padding: 0.23em 1.1em;
+  background: var(--secondary-color);
+  color: var(--accent-color) !important;
+  border: none;
+  border-radius: 7px;
+}
+.main-layout__body {
+  display: flex;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+.sidebar-root {
+  min-width: 210px;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
+  padding: 1.5rem 1rem;
+  font-size: 0.98rem;
+}
+.sidebar-root h3 {
+  color: var(--primary-color);
+  font-size: 1.08rem;
+  margin-bottom: 1.05rem;
+}
+.main-layout__content {
+  flex: 1 1 auto;
+  padding: 2rem 2.5vw;
+}
+
+/* CAR LIST PAGE */
+.carlist-page__container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.carlist-filters form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.filter-input {
+  padding: 4px 10px;
+  border-radius: 7px;
+  border: 1px solid var(--border-color);
+  margin-right: 5px;
+  font-size: 1em;
+  max-width: 130px;
+}
+.carlist-results {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.car-cards__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+  gap: 19px;
+}
+.car-card {
+  background: var(--bg-secondary);
+  padding: 1.2em 1.1em;
+  border-radius: var(--brand-radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: box-shadow 0.2s, background 0.2s;
   position: relative;
 }
-
-.App-link {
+.car-card.expanded {
+  background: #fffbe7;
+  box-shadow: 0 8px 28px 0 var(--accent-color, #ffd60022);
+}
+.car-card__header {
+  font-weight: bold;
+  color: var(--primary-color);
+  font-size: 1.14em;
+}
+.car-card__meta {
+  font-size: 0.99em;
   color: var(--text-secondary);
-  transition: color 0.3s ease;
+  display: flex;
+  gap: 1em;
+  margin-top: 2px;
+  margin-bottom: 8px;
+}
+.car-card__details {
+  padding: 0.4em 0 0.1em 0;
+}
+.car-card__category {
+  font-size: 0.95em;
+  background: var(--accent-color);
+  color: var(--secondary-color);
+  border-radius: 0.5em;
+  padding: 0.07em 0.5em;
+  margin-left: 0.5em;
+  font-weight: 500;
+}
+.car-card button {
+  margin-top: 8px;
 }
 
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
+/* AUTH FORMS */
+.auth-form__container {
+  max-width: 400px;
+  margin: 50px auto 0 auto;
+  background: var(--bg-secondary);
+  padding: 2.1em 2em 1em 2em;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+}
+.auth-form h2 {
+  color: var(--primary-color);
+  margin-bottom: 21px;
+  font-size: 1.45em;
+}
+.auth-form label {
+  display: block;
+  margin-bottom: 15px;
+  color: var(--secondary-color);
+  font-size: 1em;
+}
+.auth-form input {
+  display: block;
+  margin-top: 4px;
+  width: 100%;
+  padding: 8px 9px;
   border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
+  border: 1px solid var(--border-color);
+  font-size: 1em;
+  background: var(--bg-primary);
+  margin-bottom: 4px;
+}
+.auth-form__error {
+  color: #d54949;
+  margin-top: 7px;
+  margin-bottom: 6px;
+  font-size: 0.98em;
+}
+
+/* BUTTONS */
+.btn-primary,
+.auth-form button.btn-primary {
+  background: var(--primary-color);
+  color: #fff;
+  font-size: 1em;
+  border: none;
+  border-radius: 7px;
+  padding: 7px 21px;
   font-weight: 600;
+  margin-top: 7px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background 0.16s;
+  letter-spacing: 0.1px;
+}
+.btn-primary:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+  opacity: 0.67;
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--primary-color);
+  border: 1.2px solid var(--primary-color);
+  border-radius: 7px;
+  padding: 6px 14px;
+  margin-left: 7px;
+  font-size: 0.95em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.13s, color 0.13s;
+}
+.btn-ghost:hover {
+  background: var(--primary-color);
+  color: #fff;
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+/* BOOKING FORMS */
+.booking-page__container {
+  background: var(--bg-secondary);
+  max-width: 420px;
+  margin: 40px auto 0 auto;
+  padding: 2em 2em 1em 2em;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+}
+.booking-form label {
+  margin-bottom: 12px;
+  display: block;
+  color: var(--secondary-color);
+}
+.booking-form input[type="date"] {
+  margin-left: 9px;
+  padding: 7px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 7px;
+}
+.booking-status {
+  color: var(--primary-color);
+  margin-top: 11px;
+  margin-bottom: 7px;
+  font-size: 1.08em;
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+/* BOOKING HISTORY */
+.bookinghistory-container {
+  max-width: 760px;
+  background: var(--bg-secondary);
+  margin: 40px auto 0 auto;
+  padding: 1.4em 2em 1em 2em;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+}
+.booking-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.booking-list__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--border-color);
+  padding: 15px 0;
+  font-size: 1.04em;
+}
+.booking-list__item:last-child {
+  border-bottom: none;
+}
+.booking-list__item button {
+  margin-left: 1em;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+/* UTILITY CLASSES */
+.status-message {
+  background: #fffbe7;
+  color: var(--secondary-color);
+  border: 1.3px solid var(--accent-color);
+  border-radius: 8px;
+  margin: 1.2em 0 0.9em 0;
+  padding: 13px 1.2em;
+  font-size: 0.99em;
+  box-sizing: border-box;
+}
+.status-error {
+  background: #ffd5d5;
+  color: #b71c1c;
+  border-color: #ff5151;
+}
+.footer-root {
+  background: var(--secondary-color);
+  color: var(--accent-color);
+  text-align: center;
+  font-size: 1.08em;
+  padding: 16px;
+  letter-spacing: 0.1px;
+  margin-top: auto;
 }
 
 /* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
+@media (max-width: 1050px) {
+  .main-layout__body {
+    flex-direction: column;
+  }
+  .sidebar-root {
+    min-width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
   }
 }
+@media (max-width: 768px) {
+  .main-layout__content,
+  .carlist-page__container,
+  .bookinghistory-container,
+  .booking-page__container,
+  .auth-form__container {
+    padding: 1.1em 5vw !important;
+    width: 98vw;
+    min-width: 0;
+    margin: 5px auto 0 auto !important;
+  }
+  .header-navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .navbar-links {
+    margin-top: 0.7em;
+  }
+  .car-cards__grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
+
+/* ThemeToggle custom style */
+.theme-toggle {
+  position: static;
+  margin-left: 1rem;
+  margin-top: 0;
+  background: var(--accent-color);
+  color: var(--secondary-color);
+  font-size: 1em;
+  font-weight: 600;
+  padding: 9px 22px;
+  transition: background 0.2s, color 0.2s;
+}
+
+
+
